@@ -1,0 +1,29 @@
+
+    .form-group {
+        position: relative;
+        margin-bottom: 1rem;
+    }
+
+    .form-control-label {
+        position: absolute;
+        top: 0.25rem;
+        left: 1rem;
+        transition: all 0.3s ease-in-out;
+        pointer-events: none;
+        color: #6c757d;
+    }
+
+
+
+
+    .form-control:focus + .form-control-label,
+    .form-control:not(:placeholder-shown) + .form-control-label {
+        font-size: 1rem;
+        transform: translateY(-100%) translateX(0);
+        color: blue;
+    }
+
+    .form-control:not(:placeholder-shown) {
+        padding-top: 0;
+    }
+
