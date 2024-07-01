@@ -162,7 +162,7 @@
                         <span class="fas fa-envelope"> CORREO</span>
                         <span class="pl-3">{{ Auth::user()->email }}</span><br>
                         
-                        <a  class="btn btn-danger" href={{ route("logout") }}" onclick="event.preventDefault(); document.getElementById("logout-form").submit();">Cerrar sesión</a>
+                        <a  class="btn btn-danger" href={{ route("logout") }} onclick="event.preventDefault(); document.getElementById("logout-form").submit();">Cerrar sesión</a>
                     '>
             <img src="https://img.freepik.com/vector-premium/joven-hombre-negocios-gafas-traje-negocios-corbata-icono-cara-avatar-estilo-plano_768258-3457.jpg" alt="Usuario">
         </div>
