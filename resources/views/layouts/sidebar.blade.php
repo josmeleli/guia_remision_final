@@ -140,6 +140,19 @@
                         </a>
                     </li>
                     @endrole
+
+                    @role('administrador')
+                    <li class="pl-1">
+                        <a href="/auditorias" class="sidebar-link">
+                            <div class="div-icon">
+                                <i class="fas fa-table sidebar-icon"></i> <!-- Cambiado a fa-table -->
+                            </div>
+                            <div class="text-sidebar">
+                                <span class="d-none d-md-inline">Auditorias</span>
+                            </div>
+                        </a>
+                    </li>
+                    @endrole
                 </ul>
             </li>
             

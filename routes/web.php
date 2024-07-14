@@ -5,12 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TransportistaController;
 use App\Http\Controllers\VehiculoController;
 use App\Http\Controllers\AgricultorController;
+use App\Http\Controllers\AuditoriaController;
 use App\Http\Controllers\ChoferController;
 use App\Http\Controllers\CargaController;
 use App\Http\Controllers\CampoController;
 use App\Http\Controllers\FiltrosAvanzadosController;
 use App\Http\Controllers\GuiaController;
 use App\Http\Controllers\PagoController;
+
 
 use App\Models\Pago;
 
@@ -35,7 +37,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', [VehiculoController::class, 'mostrarMenu'])->name('mostrar.menu')->middleware('can:mostrar.menu');
 
     // Ruta para almacenar un nuevo transportista (POST)
-    Route::post('/transportista', [TransportistaController::class, 'store'])->name('transportistas.store')->middleware('can:transportistas.store');
+    Route::post('/transportista', [TransportistaController::class, 'store'])->name('transportista.store')->middleware('can:transportista.store');
 
     // Ruta para almacenar un nuevo vehículo (POST)
     Route::post('/vehiculo', [VehiculoController::class, 'store'])->name('vehiculo.store')->middleware('can:vehiculo.store');
@@ -94,11 +96,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/pago/buscar', [PagoController::class, 'buscarPago'])->name('pago.buscar')->middleware('can:pago.buscar');
 
     // Transportistas
-    Route::get('/transportistas', [TransportistaController::class, 'index'])->name('transportista.index')->middleware('can:transportistas.index');
-    Route::put('/transportistas/{transportista}', [TransportistaController::class, 'update'])->name('transportista.update')->middleware('can:transportistas.update');
-    Route::delete('/transportistas/{transportista}', [TransportistaController::class, 'destroy'])->name('transportista.destroy')->middleware('can:transportistas.destroy');
-    Route::delete('borrar-transportistas-seleccionados', [TransportistaController::class, 'borrarSeleccionados'])->name('transportista.borrar_seleccionados')->middleware('can:transportistas.borrar_seleccionados');
-    Route::get('/transportista/buscar', [TransportistaController::class, 'buscarTransportista'])->name('transportista.buscar')->middleware('can:transportistas.buscar');
+    Route::get('/transportistas', [TransportistaController::class, 'index'])->name('transportista.index')->middleware('can:transportista.index');
+    Route::put('/transportistas/{transportista}', [TransportistaController::class, 'update'])->name('transportista.update')->middleware('can:transportista.update');
+    Route::delete('/transportistas/{transportista}', [TransportistaController::class, 'destroy'])->name('transportista.destroy')->middleware('can:transportista.destroy');
+    Route::delete('borrar-transportistas-seleccionados', [TransportistaController::class, 'borrarSeleccionados'])->name('transportista.borrar_seleccionados')->middleware('can:transportista.borrar_seleccionados');
+    Route::get('/transportista/buscar', [TransportistaController::class, 'buscarTransportista'])->name('transportista.buscar')->middleware('can:transportista.buscar');
     
 
     // Vehículos
@@ -121,6 +123,13 @@ Route::middleware('auth')->group(function () {
     Route::post('/enviar-mensaje', [UserController::class, 'enviarMensaje'])->name('enviarMensaje.store');
     Route::delete('/eliminar-mensaje/{mensaje}', [UserController::class, 'eliminarMensaje'])->name('eliminarMensaje.destroy');
     Route::delete('/eliminar-todos-mensajes', [UserController::class, 'eliminarTodosMensajes'])->name('eliminarTodosMensajes.destroy');
+
+    //Auditorias
+    Route::get('/auditorias', [AuditoriaController::class, 'index'])->name('auditorias.index');
+    Route::delete('/auditorias/{auditoria}', [AuditoriaController::class, 'destroy'])->name('auditorias.destroy');
+    Route::delete('borrar-auditorias-seleccionadas', [AuditoriaController::class, 'borrarSeleccionados'])->name('auditorias.borrar_seleccionados');
+    Route::get('/auditorias/buscar', [AuditoriaController::class, 'buscarAuditoria'])->name('auditorias.buscar');
+    
 });
 
 

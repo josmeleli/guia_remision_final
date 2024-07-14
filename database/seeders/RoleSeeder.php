@@ -27,7 +27,7 @@ class RoleSeeder extends Seeder
             'guia-remision.index',
             'verificar-ruc-agricultor', 'verificar-ruc-transportista',
             'pago.index', 'pago.buscar',
-            'transportistas.index', 'transportistas.buscar',
+            'transportista.index', 'transportista.buscar',
             'vehiculo.index', 'vehiculo.buscar',
             'enviarMensaje.store', 'eliminarMensaje.destroy', 'eliminarTodosMensajes.destroy',
 
@@ -38,7 +38,7 @@ class RoleSeeder extends Seeder
 
 
         $borrar_registrar_actualizar =[
-            'transportistas.store', 'transportistas.update', 'transportistas.destroy', 'transportistas.borrar_seleccionados',
+            'transportista.store', 'transportista.update', 'transportista.destroy', 'transportista.borrar_seleccionados',
             'vehiculo.store', 'vehiculo.update', 'vehiculo.destroy', 'vehiculo.borrar_seleccionados',
             'agricultor.store', 'agricultor.update', 'agricultor.destroy','agricultor.borrar_seleccionados',
             'campo.store','campo.update','campo.destroy','campo.borrar_seleccionados',
