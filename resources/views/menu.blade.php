@@ -56,11 +56,44 @@
                     </div>
                     <div class="modal-body">
                         <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+                        <table>
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>RUC Agricultor</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($agricultores->reverse() as $agricultor) <!-- Invertir el orden -->
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td class="ruc">{{ $agricultor->ruc }}</td>
+                                        <td>
+                                            <button class="btn btn-info boton-copiar">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" />
+                                                    <path d="M4.012 16.737a2.005 2.005 0 0 1 -1.012 -1.737v-10c0 -1.1 .9 -2 2 -2h10c.75 0 1.158 .385 1.5 1" />
+                                                </svg>
+                                            </button>
+                                            <a href="/agricultores" class="btn btn-info">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-circle-arrow-up-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-4.98 3.66l-.163 .01l-.086 .016l-.142 .045l-.113 .054l-.07 .043l-.095 .071l-.058 .054l-4 4l-.083 .094a1 1 0 0 0 1.497 1.32l2.293 -2.293v5.586l.007 .117a1 1 0 0 0 1.993 -.117v-5.585l2.293 2.292l.094 .083a1 1 0 0 0 1.32 -1.497l-4 -4l-.082 -.073l-.089 -.064l-.113 -.062l-.081 -.034l-.113 -.034l-.112 -.02l-.098 -.006z" stroke-width="0" fill="currentColor" />
+                                                </svg>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+
+                            </table>
                             <table>
                                 <thead>
                                     <tr>
                                         <th>N°</th>
-                                        <th>RUC</th>
+                                        <th>RUC Transportistas</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -107,7 +140,7 @@
     </div>
     <div class="mb-3"></div>
 
-    <form action="{{ route('guia_remision.store') }}" method="POST">
+    <form action="{{ route('guia_remision.store') }}" method="POST" id="guia">
         @csrf
 
         <div class="container">
@@ -243,7 +276,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-list-ol"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" id="nro_guia" name="nro_guia" placeholder="Número de Guía" required>
+                                    <input type="text" class="form-control" id="nro_guia" name="nro_guia" placeholder="Número de Guía" required minlength="8" maxlength="8">
                                 </div>
                             </div>
                         </div>
@@ -1132,6 +1165,15 @@
             }
         });
     }
+
+    //numero de guia
+    document.getElementById('guia').onsubmit = function(e) {
+    var nroGuia = document.getElementById('nro_guia').value;
+    if (!nroGuia.startsWith('00')) {
+        alert('El número de guía debe comenzar con "00".');
+        e.preventDefault(); // Evita que el formulario se envíe
+    }
+};
 </script>
 
 
