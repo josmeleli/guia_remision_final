@@ -175,7 +175,7 @@
                 // Crear un formulario dinámico para enviar la solicitud DELETE
                 var form = document.createElement('form');
                 form.method = 'POST';
-                form.action = '{{ route('auditorias.borrar_seleccionados') }}';
+                form.action = '{{route('auditorias.borrar_seleccionados')}}';
                 form.innerHTML = '<input type="hidden" name="_method" value="DELETE">' +
                     '<input type="hidden" name="_token" value="{{ csrf_token() }}">' +
                     '<input type="hidden" name="auditoria_ids" value="' + auditoriaIds.join(',') + '">';

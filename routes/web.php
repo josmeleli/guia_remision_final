@@ -128,7 +128,7 @@ Route::middleware('auth')->group(function () {
     //Auditorias
     Route::get('/auditorias', [AuditoriaController::class, 'index'])->name('auditorias.index')->middleware('can:auditorias.index');//falta poner en roles y permisos
     Route::delete('/auditorias/{auditoria}', [AuditoriaController::class, 'destroy'])->name('auditorias.destroy')->middleware('can:auditorias.destroy');//falta poner en roles y permisos
-    Route::delete('borrar-auditorias-seleccionadas', [AuditoriaController::class, 'borrarSeleccionados'])->name('auditorias.borrar_seleccionados')->middleware('auditorias.borrar_seleccionados'); //falta poner en roles y permisos
+    Route::delete('borrar-auditorias-seleccionadas', [AuditoriaController::class, 'borrarSeleccionados'])->name('auditorias.borrar_seleccionados')->middleware('can:auditorias.borrar_seleccionados'); //falta poner en roles y permisos
     Route::get('/auditorias/buscar', [AuditoriaController::class, 'buscarAuditoria'])->name('auditorias.buscar')->middleware('can:auditorias.buscar'); //falta poner en roles y permisos
     
 });
