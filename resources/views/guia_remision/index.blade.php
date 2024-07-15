@@ -461,16 +461,11 @@
                     <td>{{ $guia->peso_bruto }}</td>
                     <td>{{ ucwords(str_replace('_', ' ', $guia->estado)) }}</td>
 
-                    <td>
+                    <td style="display: flex;  justify-content: center; gap: 5px;">
 
-                        <button type="button" class="btn btn-primary btn-sm mb-1" data-toggle="modal" data-target="#editModal{{ $guia->id }}" title="Editar">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#2c3e50" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                <path d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1" />
-                                <path d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z" />
-                                <path d="M16 5l3 3" />
-                            </svg>
-                        </button>
+                    <button type="button"class="btn btn-primary btn-sm" style="width: 38px; height: 30px; padding: 5px 10px;" data-toggle="modal" data-target="#editModal{{ $guia->id }}" title="Editar">
+                        <i class="fas fa-edit"></i>
+                    </button>
 
                         <!-- Modal para editar la guía de remisión -->
                         <div class="modal fade" id="editModal{{ $guia->id }}" tabindex="-1" aria-labelledby="editModalLabel{{ $guia->id }}" aria-hidden="true">
@@ -571,10 +566,15 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div>
+    <a href="{{ route('guia-remision.mostrar', $guia->id) }}" target="_blank" class="btn btn-danger">
+        <i class="fas fa-file-pdf"></i>
+    </a>
+</div>
 
-
-
-                        <form action="{{ route('guias.destroy', $guia->id) }}" method="POST" style="display: inline-block;">
+                        
+                        <form action="{{ route('guias.destroy', $guia->id) }}" method="POST" style="display: flex; align-items: center; justify-content: center;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm" title="Borrar">
@@ -585,6 +585,7 @@
                                 </svg>
                             </button>
                         </form>
+                        
                     </td>
                 </tr>
                 @endforeach

@@ -9,11 +9,15 @@ use App\Models\Guia;
 use App\Models\Pago;
 use App\Models\transportista;
 use App\Models\agricultor;
+use App\Models\carga;
+use App\Models\vehiculo;
+use App\Models\chofer;
 use App\Models\User;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\PDF;
 
 class guiaController extends Controller
 {
@@ -289,7 +293,18 @@ class guiaController extends Controller
 
         return response()->download($filename)->deleteFileAfterSend(true);
     }
-    
-    
-    
+
+    public function mostrarGuia(){
+        $guias = Guia::all();
+        $agricultores = Agricultor::all();
+        $transportistas = Transportista::all();
+        $campos = campo::all();
+        $cargas = carga::all();
+        $pagos = Pago::all();
+        $vehiculos = Vehiculo::all();
+        $choferes = Chofer::all();
+        
+        $pdf = PDF::loadView('guia_remision.show' , compact('guias','agricultores','transportistas','campos','cargas','pagos','vehiculos','choferes'));
+        return $pdf->stream();
+    }
 }

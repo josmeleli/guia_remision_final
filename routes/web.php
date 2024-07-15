@@ -86,6 +86,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/verificar-ruc-transportista', [GuiaController::class, 'verificarRucTransportista'])->name('ruc.transportista')->middleware('can:verificar-ruc-transportista');
     Route::get('/reporte-guias', [GuiaController::class, 'reporteGuias'])->name('reporte.guias')->middleware('can:reporte.guias');
     Route::get('/crear-guia-remision', [GuiaController::class, 'create'])->name('crear_guia_remision')->middleware('can:crear_guia_remision');
+    Route::get('/guia-remision/mostrar', [GuiaController::class, 'mostrarGuia'])->name('guia-remision.mostrar'); //falta poner en roles y permisos
 
     // Pagos
     Route::post('/crear-pago', [PagoController::class, 'store'])->name('pagos.store')->middleware('can:pagos.store');
@@ -125,10 +126,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/eliminar-todos-mensajes', [UserController::class, 'eliminarTodosMensajes'])->name('eliminarTodosMensajes.destroy');
 
     //Auditorias
-    Route::get('/auditorias', [AuditoriaController::class, 'index'])->name('auditorias.index');
-    Route::delete('/auditorias/{auditoria}', [AuditoriaController::class, 'destroy'])->name('auditorias.destroy');
-    Route::delete('borrar-auditorias-seleccionadas', [AuditoriaController::class, 'borrarSeleccionados'])->name('auditorias.borrar_seleccionados');
-    Route::get('/auditorias/buscar', [AuditoriaController::class, 'buscarAuditoria'])->name('auditorias.buscar');
+    Route::get('/auditorias', [AuditoriaController::class, 'index'])->name('auditorias.index');//falta poner en roles y permisos
+    Route::delete('/auditorias/{auditoria}', [AuditoriaController::class, 'destroy'])->name('auditorias.destroy');//falta poner en roles y permisos
+    Route::delete('borrar-auditorias-seleccionadas', [AuditoriaController::class, 'borrarSeleccionados'])->name('auditorias.borrar_seleccionados');//falta poner en roles y permisos
+    Route::get('/auditorias/buscar', [AuditoriaController::class, 'buscarAuditoria'])->name('auditorias.buscar'); //falta poner en roles y permisos
     
 });
 

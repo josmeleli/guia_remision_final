@@ -148,7 +148,7 @@
                     </div>
                 </div>
             </form>
-            <i class="fas fa-exclamation-circle"></i>
+            
         </div>
         <div class="user" data-toggle="popover" data-placement="bottom" data-html="true" data-content='
                         <img class="user-image" src="https://img.freepik.com/vector-premium/joven-hombre-negocios-gafas-traje-negocios-corbata-icono-cara-avatar-estilo-plano_768258-3457.jpg" alt="Usuario"><br>
