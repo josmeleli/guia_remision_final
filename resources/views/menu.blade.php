@@ -30,12 +30,7 @@
                 <path d="M9 16h6" />
             </svg>
             <h4>Registro de Guía de Remisión</h4>
-            <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#exampleModal">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-plus-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                    <path d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm0 6a1 1 0 0 0 -1 1v2h-2l-.117 .007a1 1 0 0 0 .117 1.993h2v2l.007 .117a1 1 0 0 0 1.993 -.117v-2h2l.117 -.007a1 1 0 0 0 -.117 -1.993h-2v-2l-.007 -.117a1 1 0 0 0 -.993 -.883z" fill="currentColor" stroke-width="0" />
-                </svg>
-            </button>
+
 
         </div>
 
@@ -56,10 +51,11 @@
                     </div>
                     <div class="modal-body">
                         <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
-                        <table>
+                            <table>
                                 <thead>
                                     <tr>
                                         <th>N°</th>
+                                        <th>Razón Social</th>
                                         <th>RUC Agricultor</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -68,6 +64,7 @@
                                     @foreach($agricultores->reverse() as $agricultor) <!-- Invertir el orden -->
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $agricultor->razon_social }}</td>
                                         <td class="ruc">{{ $agricultor->ruc }}</td>
                                         <td>
                                             <button class="btn btn-info boton-copiar">
@@ -83,16 +80,48 @@
                                                     <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-4.98 3.66l-.163 .01l-.086 .016l-.142 .045l-.113 .054l-.07 .043l-.095 .071l-.058 .054l-4 4l-.083 .094a1 1 0 0 0 1.497 1.32l2.293 -2.293v5.586l.007 .117a1 1 0 0 0 1.993 -.117v-5.585l2.293 2.292l.094 .083a1 1 0 0 0 1.32 -1.497l-4 -4l-.082 -.073l-.089 -.064l-.113 -.062l-.081 -.034l-.113 -.034l-.112 -.02l-.098 -.006z" stroke-width="0" fill="currentColor" />
                                                 </svg>
                                             </a>
+                                            <button class="btn btn-info" onclick="consultarRUC()">
+                                                Seleccionar
+                                            </button>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
 
                             </table>
+
+                            <div id="copiadoMensaje">¡RUC copiado!</div>
+
+                        </div>
+
+                        <script src="js/copy.js"></script>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="exampleModalTransportista" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">RUC Registrados</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="table-responsive" style="max-height: 300px; overflow-y: auto;">
+
                             <table>
                                 <thead>
                                     <tr>
                                         <th>N°</th>
+                                        <th>Razón Social</th>
                                         <th>RUC Transportistas</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -101,9 +130,10 @@
                                     @foreach($transportistas->reverse() as $transportista) <!-- Invertir el orden -->
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td class="ruc">{{ $transportista->RUC }}</td>
+                                        <td >{{ $transportista->razon_social }}</td>
+                                        <td class="ruc2">{{ $transportista->RUC }}</td>
                                         <td>
-                                            <button class="btn btn-info boton-copiar">
+                                            <button class="btn btn-info boton-copiar2">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copy" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                     <path d="M7 7m0 2.667a2.667 2.667 0 0 1 2.667 -2.667h8.666a2.667 2.667 0 0 1 2.667 2.667v8.666a2.667 2.667 0 0 1 -2.667 2.667h-8.666a2.667 2.667 0 0 1 -2.667 -2.667z" />
@@ -116,13 +146,16 @@
                                                     <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-4.98 3.66l-.163 .01l-.086 .016l-.142 .045l-.113 .054l-.07 .043l-.095 .071l-.058 .054l-4 4l-.083 .094a1 1 0 0 0 1.497 1.32l2.293 -2.293v5.586l.007 .117a1 1 0 0 0 1.993 -.117v-5.585l2.293 2.292l.094 .083a1 1 0 0 0 1.32 -1.497l-4 -4l-.082 -.073l-.089 -.064l-.113 -.062l-.081 -.034l-.113 -.034l-.112 -.02l-.098 -.006z" stroke-width="0" fill="currentColor" />
                                                 </svg>
                                             </a>
+                                            <button class="btn btn-info" onclick="consultarRUCTransportista()">
+                                                Seleccionar
+                                            </button>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
 
                             </table>
-                            <div id="copiadoMensaje">¡RUC copiado!</div>
+                            <div id="copiadoMensaje2">¡RUC copiado!</div>
 
                         </div>
 
@@ -148,8 +181,14 @@
 
 
             <div class="card mb-4">
-                <div class="card-header">
+                <div class="card-header" style="display: flex;">
                     <h5><i class="fas fa-user"></i> Información del Remitente (Agricultor)</h5>
+                    <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#exampleModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-plus-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm0 6a1 1 0 0 0 -1 1v2h-2l-.117 .007a1 1 0 0 0 .117 1.993h2v2l.007 .117a1 1 0 0 0 1.993 -.117v-2h2l.117 -.007a1 1 0 0 0 -.117 -1.993h-2v-2l-.007 -.117a1 1 0 0 0 -.993 -.883z" fill="currentColor" stroke-width="0" />
+                        </svg>
+                    </button>
                 </div>
                 <div class="card-body">
                     <div class="d-flex mb-3">
@@ -202,8 +241,14 @@
 
 
             <div class="card mb-4">
-                <div class="card-header">
+                <div class="card-header" style="display: flex;">
                     <h5><i class="fas fa-truck"></i> Información del Transportista</h5>
+                    <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#exampleModalTransportista">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-square-rounded-plus-filled" width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="#ffffff" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M12 2l.324 .001l.318 .004l.616 .017l.299 .013l.579 .034l.553 .046c4.785 .464 6.732 2.411 7.196 7.196l.046 .553l.034 .579c.005 .098 .01 .198 .013 .299l.017 .616l.005 .642l-.005 .642l-.017 .616l-.013 .299l-.034 .579l-.046 .553c-.464 4.785 -2.411 6.732 -7.196 7.196l-.553 .046l-.579 .034c-.098 .005 -.198 .01 -.299 .013l-.616 .017l-.642 .005l-.642 -.005l-.616 -.017l-.299 -.013l-.579 -.034l-.553 -.046c-4.785 -.464 -6.732 -2.411 -7.196 -7.196l-.046 -.553l-.034 -.579a28.058 28.058 0 0 1 -.013 -.299l-.017 -.616c-.003 -.21 -.005 -.424 -.005 -.642l.001 -.324l.004 -.318l.017 -.616l.013 -.299l.034 -.579l.046 -.553c.464 -4.785 2.411 -6.732 7.196 -7.196l.553 -.046l.579 -.034c.098 -.005 .198 -.01 .299 -.013l.616 -.017c.21 -.003 .424 -.005 .642 -.005zm0 6a1 1 0 0 0 -1 1v2h-2l-.117 .007a1 1 0 0 0 .117 1.993h2v2l.007 .117a1 1 0 0 0 1.993 -.117v-2h2l.117 -.007a1 1 0 0 0 -.117 -1.993h-2v-2l-.007 -.117a1 1 0 0 0 -.993 -.883z" fill="currentColor" stroke-width="0" />
+                        </svg>
+                    </button>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -1045,7 +1090,7 @@
         window.addEventListener('scroll', keepMessageInScreen);
     });
 
-  
+
 
 
     document.addEventListener('DOMContentLoaded', function() {
@@ -1168,12 +1213,12 @@
 
     //numero de guia
     document.getElementById('guia').onsubmit = function(e) {
-    var nroGuia = document.getElementById('nro_guia').value;
-    if (!nroGuia.startsWith('00')) {
-        alert('El número de guía debe comenzar con "00".');
-        e.preventDefault(); // Evita que el formulario se envíe
-    }
-};
+        var nroGuia = document.getElementById('nro_guia').value;
+        if (!nroGuia.startsWith('00')) {
+            alert('El número de guía debe comenzar con "00".');
+            e.preventDefault(); // Evita que el formulario se envíe
+        }
+    };
 </script>
 
 

@@ -24,7 +24,7 @@ tr:nth-child(odd) {
     background-color: #ffffff; /* Color blanco */
 }
 
-#copiadoMensaje {
+#copiadoMensaje, #copiadoMensaje2 {
 position: fixed;
 top: 50%;
 left: 50%;
@@ -35,3 +35,4 @@ padding: 15px 20px;
 border-radius: 5px;
 display: none;
 }
+
