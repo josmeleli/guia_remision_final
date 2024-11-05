@@ -200,6 +200,7 @@ class guiaController extends Controller
             return response()->json([
                 'razon_social' => $datos->razon_social,
                 'direccion' => $datos->direccion,
+                'ruc' => $datos->ruc,
             ]);
         } else {
             return response()->json(['error' => 'No se encontraron datos para el RUC proporcionado'], 404);
@@ -216,6 +217,7 @@ class guiaController extends Controller
             return response()->json([
                 'razon_social' => $datos->razon_social,
                 'zona' => $datos->zona,
+                'RUC' => $datos->RUC,
             ]);
         } else {
             return response()->json(['error' => 'No se encontraron datos para el RUC proporcionado'], 404);

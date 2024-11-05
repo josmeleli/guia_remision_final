@@ -80,7 +80,7 @@
                                                     <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-4.98 3.66l-.163 .01l-.086 .016l-.142 .045l-.113 .054l-.07 .043l-.095 .071l-.058 .054l-4 4l-.083 .094a1 1 0 0 0 1.497 1.32l2.293 -2.293v5.586l.007 .117a1 1 0 0 0 1.993 -.117v-5.585l2.293 2.292l.094 .083a1 1 0 0 0 1.32 -1.497l-4 -4l-.082 -.073l-.089 -.064l-.113 -.062l-.081 -.034l-.113 -.034l-.112 -.02l-.098 -.006z" stroke-width="0" fill="currentColor" />
                                                 </svg>
                                             </a>
-                                            <button class="btn btn-info" onclick="consultarRUC()">
+                                            <button class="btn btn-info" onclick="consultarRUCDesdeTD()">
                                                 Seleccionar
                                             </button>
                                         </td>
@@ -146,7 +146,7 @@
                                                     <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-4.98 3.66l-.163 .01l-.086 .016l-.142 .045l-.113 .054l-.07 .043l-.095 .071l-.058 .054l-4 4l-.083 .094a1 1 0 0 0 1.497 1.32l2.293 -2.293v5.586l.007 .117a1 1 0 0 0 1.993 -.117v-5.585l2.293 2.292l.094 .083a1 1 0 0 0 1.32 -1.497l-4 -4l-.082 -.073l-.089 -.064l-.113 -.062l-.081 -.034l-.113 -.034l-.112 -.02l-.098 -.006z" stroke-width="0" fill="currentColor" />
                                                 </svg>
                                             </a>
-                                            <button class="btn btn-info" onclick="consultarRUCTransportista()">
+                                            <button class="btn btn-info" onclick="consultarRUCTransportistaDesdeTD()">
                                                 Seleccionar
                                             </button>
                                         </td>
@@ -163,7 +163,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-secondary" id="cerrarModalTransportista" data-dismiss="modal">Cerrar</button>
 
                     </div>
                 </div>
@@ -1203,6 +1203,7 @@
                 } else {
                     document.getElementById('razonSocialInputTransportista').value = response.razon_social;
                     document.getElementById('zonaInputTransportista').value = response.zona;
+                    
                 }
             },
             error: function(xhr) {
@@ -1210,6 +1211,60 @@
             }
         });
     }
+
+    function consultarRUCDesdeTD() {
+    var ruc = document.querySelector('.ruc').innerText.trim();
+
+    $.ajax({
+        url: "{{ route('ruc.agricultor') }}",
+        method: 'POST',
+        data: {
+            '_token': '{{ csrf_token() }}',
+            'ruc_agricultor': ruc
+        },
+        success: function(response) {
+            console.log(response);
+            if (response.error) {
+                alert(response.error);
+            } else {
+                document.getElementById('razonSocialInput').value = response.razon_social;
+                document.getElementById('direccionInput').value = response.direccion;
+                document.getElementById('rucInput').value = response.ruc;
+                document.querySelector('[data-dismiss="modal"]').click();
+            }
+        },
+        error: function(xhr) {
+            alert('Error al consultar el RUC.');
+        }
+    });
+}
+
+function consultarRUCTransportistaDesdeTD() {
+    var ruc = document.querySelector('.ruc2').innerText.trim();
+
+    $.ajax({
+        url: "{{ route('ruc.transportista') }}",
+        method: 'POST',
+        data: {
+            '_token': '{{ csrf_token() }}',
+            'ruc_transportista': ruc
+        },
+        success: function(response) {
+            console.log(response);
+            if (response.error) {
+                alert(response.error);
+            } else {
+                document.getElementById('razonSocialInputTransportista').value = response.razon_social;
+                document.getElementById('zonaInputTransportista').value = response.zona;
+                document.getElementById('rucInputTransportista').value = response.RUC;
+                document.getElementById('cerrarModalTransportista').click();
+            }
+        },
+        error: function(xhr) {
+            alert('Error al consultar el RUC.');
+        }
+    });
+}
 
     //numero de guia
     document.getElementById('guia').onsubmit = function(e) {
